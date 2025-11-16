@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>War Room v5.3 - Command.Green</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; }
+    .warroom { padding: 20px; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .logo { height: 60px; vertical-align: middle; }
+    .byline { color: #fff; font-size: 14px; }
+    .tabs { display: flex; border-bottom: 1px solid #0f0; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab { padding: 10px 15px; cursor: pointer; border: 1px solid #0f0; margin: 5px; font-size: 14px; }
+    .tab.active { background: #0f0; color: #000; }
+    .panel { display: none; padding: 20px; border: 1px solid #0f0; }
+    .panel.active { display: block; }
+    .search-input { width: 60%; padding: 8px; background: #000; color: #0f0; border: 1px solid #0f0; }
+    .search-btn { padding: 8px 15px; background: #0f0; color: #000; border: none; cursor: pointer; }
+    .preview { margin-top: 15px; padding: 15px; border: 1px dashed #0f0; background: #001100; display: none; }
+    .preview.show { display: block; }
+    .unlock-btn { margin-top: 10px; padding: 8px 20px; background: #0f0; color: #000; border: none; cursor: pointer; }
+    .footer { margin-top: 40px; font-size: 12px; color: #fff; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="warroom">
+    <div class="header">
+      <img src="/logo.png" alt="Badger" class="logo">
+      <div>Command Green Environmental Justice Operations Centre</div>
+      <div class="byline">Exposing Green Hypocrisy for Course-correction</div>
+    </div>
+    <h1 style="color:#0f0; text-align:center;">WAR ROOM v5.3 ACTIVE</h1>
+    
+    <div class="tabs">
+      <div class="tab active" onclick="openTab('signals')">Live Signals</div>
+      <div class="tab" onclick="openTab('reports')">Case Tagging/Reports</div>
+      <div class="tab" onclick="openTab('vault')">Evidence Vault</div>
+      <div class="tab" onclick="openTab('defenders')">Defend the Defenders</div>
+      <div class="tab" onclick="openTab('notifs')">Notifications</div>
+    </div>
+
+    <!-- LIVE SIGNALS -->
+    <div id="signals" class="panel active">
+      <p style="color:cyan; animation:blink 1s infinite;">LIVE: Shell spill — Niger Delta (OpenOil)</p>
+      <p style="color:#ff0;">PENDING: Seismic survey — East Coast SA (Amnesty)</p>
+    </div>
+
+    <!-- CASE TAGGING/REPORTS -->
+    <div id="reports" class="panel">
+      <h3>Case Tagging/Reports</h3>
+      <input type="text" class="search-input" placeholder="e.g. Shell Niger Delta" id="reportInput">
+      <button class="search-btn" onclick="searchReport()">SEARCH</button>
+      <div id="reportResult" class="preview"></div>
+    </div>
+
+    <!-- EVIDENCE VAULT -->
+    <div id="vault" class="panel">
+      <h3>Evidence Vault</h3>
+      <input type="text" class="search-input" placeholder="Search vault..." id="vaultInput">
+      <button class="search-btn" onclick="searchVault()">SEARCH</button>
+      <div id="vaultResult" class="preview"></div>
+    </div>
+
+    <!-- DEFEND THE DEFENDERS -->
+    <div id="defenders" class="panel">
+      <h3>Defend the Defenders</h3>
+      <input type="text" class="search-input" placeholder="e.g. Wild Coast activists" id="defenderInput">
+      <button class="search-btn" onclick="searchDefenders()">SEARCH</button>
+      <div id="defenderResult" class="preview"></div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div id="notifs" class="panel">
+      <h3>Daily Notifications — $99/month</h3>
+      <input type="text" class="search-input" placeholder="e.g. Shell seismic SA" id="notifInput">
+      <button class="search-btn" onclick="searchNotifs()">SEARCH</button>
+      <div id="notifResult" class="preview"></div>
+    </div>
+
+    <a href="/" style="color:cyan;">Return to JOC</a>
+  </div>
+
+  <div class="footer">
+    Powered by 10+ APIs and Targeted Bots. Truth Engine v5.3
+  </div>
+
+  <script>
+    function openTab(tabName) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
+      document.querySelectorAll('.preview').forEach(p => p.classList.remove('show'));
+    }
+
+    function searchReport() {
+      const q = document.getElementById('reportInput').value || 'Shell Niger Delta';
+      const result = document.getElementById('reportResult');
+      result.innerHTML = `
+        <p><strong>Preview: ${q}</strong></p>
+        <p>Incidents: (Redacted) number of oil spills</p>
+        <p>Volume: (Redacted) litres of oil spilled</p>
+        <p>Investor exposure: (Redacted) dividends paid to BlackRock</p>
+        <p>Consumer complicity: (Redacted) million litres via fuel purchases</p>
+        <p><button class="unlock-btn" onclick="pay(49)">Unlock Full Report — $49</button></p>
+      `;
+      result.classList.add('show');
+    }
+
+    function searchVault() {
+      const q = document.getElementById('vaultInput').value || 'Niger Delta';
+      const result = document.getElementById('vaultResult');
+      result.innerHTML = `
+        <p><strong>Preview: ${q}</strong></p>
+        <p>Entries: (Redacted) evidence items</p>
+        <p>Volume: (Redacted) litres documented</p>
+        <p><button class="unlock-btn" onclick="pay(9)">Unlock Full Vault Export — $9</button></p>
+      `;
+      result.classList.add('show');
+    }
+
+    function searchDefenders() {
+      const q = document.getElementById('defenderInput').value || 'Wild Coast';
+      const result = document.getElementById('defenderResult');
+      result.innerHTML = `
+        <p><strong>Preview: ${q}</strong></p>
+        <p>Activists at risk: (Redacted) individuals</p>
+        <p>Threat level: (Redacted) incidents</p>
+        <p><button class="unlock-btn" onclick="pay(49)">Unlock Defender Report — $49</button></p>
+      `;
+      result.classList.add('show');
+    }
+
+    function searchNotifs() {
+      const q = document.getElementById('notifInput').value || 'Shell seismic SA';
+      const result = document.getElementById('notifResult');
+      result.innerHTML = `
+        <p><strong>Preview: ${q}</strong></p>
+        <p>Daily alerts: (Redacted) incidents/week</p>
+        <p>Delivery: Email + SMS</p>
+        <p><button class="unlock-btn" onclick="pay(99)">Subscribe — $99/month</button></p>
+      `;
+      result.classList.add('show');
+    }
+
+    function pay(amount) {
+      alert('Redirecting to Stripe — $' + amount);
+    }
+  </script>
+</body>
+</html>

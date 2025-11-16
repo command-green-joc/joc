@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><head><title>Command.Green — T&Cs</title><style>body{background:#000;color:#0f0;font-family:monospace;text-align:center;padding:100px;}</style></head>
+<body>
+<h1>COMMAND.GREEN</h1>
+<p>Environmental Justice Operations Centre</p>
+<p><strong>Accept Terms to Enter War Room</strong></p>
+<div style="margin:30px;">
+  <input type="checkbox" id="accept-tc">
+  <label for="accept-tc">
+    I accept the <a href="/terms.html" target="_blank" style="color:cyan;">Terms & Conditions</a>. 
+    I understand a nil return is a good outcome and Command.Green is not liable for omissions.
+  </label>
+</div>
+<button onclick="enterWarRoom()" disabled id="enterBtn">ENTER WAR ROOM →</button>
+<script>
+document.getElementById('accept-tc').addEventListener('change', function() {
+  document.getElementById('enterBtn').disabled = !this.checked;
+});
+function enterWarRoom() {
+  if (document.getElementById('accept-tc').checked) {
+    window.location = '/warroom.html';
+  }
+}
+</script>
+</body></html>

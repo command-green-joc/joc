@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Justice Operations Centre - Command.Green</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; text-align: center; padding: 20px; }
+    .header { margin-bottom: 30px; }
+    .header img { height: 60px; vertical-align: middle; }
+    .byline { color: #666; font-size: 14px; margin: 5px 0; }
+    .block { margin: 20px auto; width: 80%; padding: 15px; border: 1px solid #0f0; cursor: pointer; }
+    .block:hover { background: #001100; }
+    .expanded { display: none; margin-top: 10px; color: #0a0; }
+    .enter { color: cyan; font-size: 28px; text-decoration: underline; display: block; margin: 30px; }
+    .tc { margin: 30px; font-size: 14px; }
+    .tc input { margin-right: 10px; }
+    .tc a { color: cyan; }
+    .disabled { pointer-events: none; opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="/logo.png" alt="Command.Green">
+    <div class="byline">Exposing Green Hypocrisy for Course Correction</div>
+    <h1>COMMAND.GREEN</h1>
+    <h2>Environmental Justice Operations Centre</h2>
+  </div>
+
+  <!-- [Your existing blocks here] -->
+
+  <div class="tc">
+    <input type="checkbox" id="tc" onchange="toggleEnter()">
+    I accept the <a href="/terms.html" target="_blank">Terms</a>. Nil report = good outcome.
+  </div>
+
+  <a href="/warroom.html?key=scalpel" id="enter" class="enter disabled">ENTER WAR ROOM →</a>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+    function toggleEnter() {
+      const enter = document.getElementById('enter');
+      enter.classList.toggle('disabled', !document.getElementById('tc').checked);
+    }
+  </script>
+</body>
+</html>
