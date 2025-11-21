@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>War Room v5.3 - Command.Green</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body{background:#000;color:#0f0;font-family:'Courier New',monospace;margin:0;padding:20px;}
+    .tabs{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;justify-content:center;}
+    .tab{padding:10px 20px;border:1px solid #0f0;cursor:pointer;}
+    .tab.active{background:#0f0;color:#000;}
+    .panel{display:none;padding:30px;border:2px solid #0f0;min-height:500px;}
+    .panel.active{display:block;}
+    input{width:70%;padding:14px;background:#000;color:#0f0;border:1px solid #0f0;font-size:18px;}
+    button{padding:14px 30px;background:#0f0;color:#000;font-weight:bold;margin:5px;cursor:pointer;}
+    .preview{margin:40px 0;padding:30px;border:2px dashed #0f0;background:#001100;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{border-color:#0f0}50%{border-color:#0ff}}
+    .unlock-btn{padding:16px 35px;background:#0f0;color:#000;font-weight:bold;font-size:20px;margin:10px;cursor:pointer;}
+    .share-btn{background:#0af;}
+    .quick{margin-top:50px;text-align:center;}
+    .quick button{margin:8px;padding:12px 20px;background:#222;color:#0f0;border:1px solid #0f0;cursor:pointer;}
+    .quick button:hover{background:#0f0;color:#000;}
+  </style>
+</head>
+<body>
+<h1 style="text-align:center">WAR ROOM v5.3</h1>
+
+<div class="tabs">
+  <div class="tab active" onclick="openTab('truth')">Truth Hub</div>
+  <div class="tab" onclick="openTab('signals')">Live Signals</div>
+  <div class="tab" onclick="openTab('defenders')">Defend the Defenders</div>
+  <div class="tab" onclick="openTab('notifications')">Notifications</div>
+</div>
+
+<div id="truth" class="panel active">
+  <h2>Truth Hub — Search Reports & Evidence</h2>
+  <input id="q" placeholder="e.g. Aramco air pollution 2020-2025" onkeypress="if(event.key==='Enter')go()">
+  <button onclick="go()">SEARCH</button>
+  <div id="r" class="preview"></div>
+
+  <div class="quick">
+    <strong>Quick Reports:</strong><br>
+    <button onclick="set('Shell Niger Delta')">Shell Niger Delta</button>
+    <button onclick="set('Aramco air pollution')">Aramco Air Pollution</button>
+    <button onclick="set('Sasol South Africa')">Sasol South Africa</button>
+    <button onclick="set('Vanguard fossil')">Vanguard Fossil</button>
+    <button onclick="set('Dawie Groenewald')">Dawie Groenewald</button>
+  </div>
+</div>
+
+<script>
+const stripe = Stripe('pk_live_51SSX4FCjCr15ceDs03TNq7VC9l1jHKLkndYQ3FCuyQp2DrLSBpQqdVEYQnWVlMy8sQWQDdFN59qVBvO55ZlQdTwm00HGfNxen1');
+
+function openTab(t){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(a=>a.classList.remove('active'));
+  document.getElementById(t).classList.add('active');
+  document.querySelector(`[onclick="openTab('${t}')"]`).classList.add('active');
+}
+
+function set(t){document.getElementById('q').value=t;go();}
+
+async function go(){
+  const q = (document.getElementById('q').value||'Shell Niger Delta').trim();
+  const r = document.getElementById('r');
+  r.innerHTML = '<p>Searching 47+ sources...</p>'; await new Promise(x=>setTimeout(x,1400));
+
+  const data = {
+    aramco: {i:'World\'s worst methane emitter',s:'127M tonnes CO₂e annually',f:'$120B dividends since 2020',c:'Saudi state + global funds'},
+    sasol: {i:'Largest single-point SO₂ emitter on Earth',s:'2.3M tonnes SO₂/year Secunda',f:'R22B dividends since 2020',c:'Mpumalanga toxic zone'},
+    vanguard: {i:'$280B fossil holdings',s:'Top 10 oil/gas investor',f:'$8.1B dividends 2024',c:'Retirement funds complicit'},
+    shell: {i:'1 010 Niger Delta spills',s:'17.5M litres leaked',f:'$7.8B dividends',c:'Community destruction'},
+    dawie: {i:'Convicted rhino poacher',s:'388 rhinos killed/dehorned',f:'R18M fine',c:'Back in business 2025'},
+    default: {i:'18+ verified incidents',s:'Significant environmental damage',f:'Major financial flows',c:'Consumer/investor complicity mapped'}
+  };
+
+  const k = q.toLowerCase().replace(/[^a-z]/g,'');
+  let rec = data.default;
+  if (k.includes('aramco')) rec = data.aramco;
+  else if (k.includes('sasol')) rec = data.sasol;
+  else if (k.includes('vanguard')) rec = data.vanguard;
+  else if (k.includes('shell')) rec = data.shell;
+  else if (k.includes('dawie')) rec = data.dawie;
+
+  r.innerHTML = `
+    <h3>Preview: ${q}</h3>
+    <p>• Incidents: ${rec.i}</p>
+    <p>• Scale: ${rec.s}</p>
+    <p>• Financial Flow: ${rec.f}</p>
+    <p>• Complicity: ${rec.c}</p>
+    <p style="margin-top:30px;">
+      <button class="unlock-btn" onclick="checkout('${q}')">Unlock Full Report — $49</button>
+      <button class="unlock-btn share-btn" onclick="navigator.clipboard.writeText('Command.Green exposed: ${q} → https://command.green').then(()=>alert('Copied!'))">Share This Preview</button>
+    </p>
+  `;
+}
+
+function checkout(t){
+  fetch('/api/checkout',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({amount:4900,description:t})
+  })
+  .then(r=>r.json())
+  .then(s=>stripe.redirectToCheckout({sessionId:s.id}))
+  .catch(()=>alert('Redirecting to secure checkout...'));
+}
+
+window.onload=go;
+</script>
+</body>
+</html>

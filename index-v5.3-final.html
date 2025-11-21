@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Command.Green</title>
+  <style>
+    body{background:#000;color:#0f0;font-family:'Courier New',monospace;text-align:center;padding:40px;}
+    h1{font-size:48px;margin:20px;}
+    em{color:#0f8;font-size:26px;margin:30px 0;}
+    .block{margin:20px auto;width:85%;padding:18px;border:1px solid #0f0;cursor:pointer;font-size:18px;}
+    .block:hover{background:#001100;}
+    .expanded{display:none;margin-top:12px;color:#0af;font-size:16px;}
+    .tc{margin:35px 0;font-size:17px;}
+    .tc input{margin-right:8px;}
+    a.enter{color:cyan;font-size:34px;text-decoration:underline;display:block;margin:40px;}
+    .disabled{pointer-events:none;opacity:0.4;}
+  </style>
+</head>
+<body>
+  <h1>COMMAND.GREEN</h1>
+  <p>We present undeniable proof so the world finally acts.<br>One report. One course-correction at a time.</p>
+  <p><em>In a world where institutions rely on the public forgetting,<br>remembering becomes revolutionary.</em></p>
+
+  <div class="block" onclick="this.querySelector('.expanded').style.display='block'">
+    <strong>Truth Hub</strong>
+    <div class="expanded">Search 47+ live sources. 20-page report exposes collective hypocrisy.</div>
+  </div>
+  <div class="block" onclick="this.querySelector('.expanded').style.display='block'">
+    <strong>Live Signals</strong>
+    <div class="expanded">Real-time spills, court filings, satellite alerts — updated every 6 hours.</div>
+  </div>
+  <div class="block" onclick="this.querySelector('.expanded').style.display='block'">
+    <strong>Defend the Defenders</strong>
+    <div class="expanded">Launching in 48 hours — threat monitoring for environmental activists.</div>
+  </div>
+  <div class="block" onclick="this.querySelector('.expanded').style.display='block'">
+    <strong>Daily Notifications — $99/month</strong>
+    <div class="expanded">First 100 report buyers get grandfathered lifetime pricing (from $29/month forever).</div>
+  </div>
+
+  <div class="tc">
+    <input type="checkbox" id="tc" onchange="document.getElementById('enter').classList.toggle('disabled',!this.checked)">
+    I accept the <a href="/terms.html" style="color:cyan">Terms & Conditions</a>
+  </div>
+
+  <a href="/warroom-v5.3-final.html" id="enter" class="enter disabled">ENTER WAR ROOM →</a>
+</body>
+</html>
